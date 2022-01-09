@@ -1,7 +1,6 @@
 import Header from './components/Header'
 import { useState, useEffect } from 'react'
 
-
 function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [items, setItems] = useState([])
@@ -9,7 +8,7 @@ function App() {
 
   useEffect(() => {
     const fetchGifs = async () => {
-      const res = await fetch('https://api.giphy.com/v1/gifs/search?api_key=&limit=25&q=' + searchQuery)
+      const res = await fetch('https://api.giphy.com/v1/gifs/search?api_key=API_KEY&limit=25&q=' + searchQuery)
       const data = await res.json ()
       setHeaderBg(data.data[Math.floor(Math.random()*items.length)].images.downsized_medium.url)
       setItems(data.data)
@@ -18,13 +17,9 @@ function App() {
     fetchGifs()
   }, [searchQuery])
 
-  // fetch Gifs
-const onSubmit = (e) => {
+ const onSubmit = (e) => {
   e.preventDefault()
-
 }
-
-
   return (
     <div className="App">
         <Header style={{ 
