@@ -1,0 +1,140 @@
+:root {
+  --white: 255,255,255;
+  --black: 0,0,0;
+  --background:#1e1d2c;
+
+}
+* {
+  box-sizing:border-box;
+}
+body {
+  margin: 0;
+  background:var(--background);
+  font-family: sans-serif;
+  overflow-x:hidden;
+}
+
+input {
+  min-width:40vw;
+  font-size:1.12rem;
+  background:rgb(var(--white));
+  transform:translateY(-2rem);
+  padding:1rem .8rem;
+  border-radius:.6rem;
+  border:1px solid rgba(var(--black),.2);
+}
+
+::placeholder {
+  font-size:1.12rem;
+}
+.gif-result {
+  width:100%;
+  height:100%;
+}
+
+header {
+  position:relative;
+  overflow:hidden;
+  width:100vw;
+  height:50vh;
+  color:rgb(var(--white));
+  background-size:cover;
+  background-position:center center;
+}
+
+header:before {
+  content:'';
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(var(--black),.6);
+}
+
+header :where(p, h1) {
+  width:100%;
+  text-align:center;
+  z-index:9
+}
+
+main {
+  max-width:85vw;
+  margin:10vh auto;
+  width:100%;
+  display: grid;
+	grid-gap: 1.4rem;
+	grid-template-columns: repeat(auto-fit,
+	minmax(22%, 1fr));
+	grid-auto-rows: 20%;
+	grid-auto-flow: row dense;
+}
+
+article {
+  position:relative;
+  object-fit:cover;
+}
+
+.flex {
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.flex-center {
+  align-items:center;
+  justify-content:center;
+  align-content:center;
+}
+
+.caption {
+  position:absolute;
+  padding:1rem;
+  width:100%;
+  opacity:0;
+  top:0;
+  left:0;
+  color:rgb(var(--white));
+  background:rgba(var(--black), .6);
+  height:100%;
+  z-index:2;
+  text-decoration:none;
+}
+
+article:hover .caption, article:hover:before{
+  opacity:1;
+}
+
+article:before {
+  content:attr(dimensions);
+  position:absolute;
+  background:black;
+  padding:.4rem;
+  bottom:0;
+  opacity:0;
+  z-index:3;
+  border-top-right-radius:1rem;
+  color:white;
+}
+
+.user {
+  width:100%;
+  font-size:1.2rem;
+  font-weight:bold;
+}
+.user-avatar {
+  width:40px;
+  height:40px;
+  margin-right:.6rem;
+  border-radius:100%;
+}
+
+.tall {
+	grid-row-end: span 2;
+}
+
+.wide {
+	grid-column-end: span 2;
+}
+
+.big {
+	grid-row-end: span 2;
+	grid-column-end: span 2;
+}
