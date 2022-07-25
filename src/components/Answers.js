@@ -1,4 +1,5 @@
 
+import React from 'react'
 const Answers = ({url, answer, asker, question, username, type}) => {
   
 return (

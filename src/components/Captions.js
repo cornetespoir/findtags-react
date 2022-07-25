@@ -1,4 +1,5 @@
 
+import React from 'react'
 const Captions = ({url, content, username, type}) => {
         if (type === 'answer') {
             return null

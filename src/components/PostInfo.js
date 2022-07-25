@@ -1,3 +1,4 @@
+import React from 'react'
 const Postinfo = ({noteCount, postURL, reblogURL, dateTime}) => {
 
         const postURLString = postURL.substring(postURL.indexOf("post/") + 5)

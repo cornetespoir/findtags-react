@@ -2,7 +2,7 @@
 import Captions from './components/Captions'
 import PostInfo from './components/PostInfo'
 import Answers from './components/Answers'
-import { useState, useEffect } from 'react'
+import { React, useState, useEffect } from 'react'
 
 const THE_KEY = process.env.REACT_APP_TUMBLR_API_KEY
 
