@@ -44,7 +44,7 @@ function App() {
   const handleTag = (tag) => {
     setSearchQuery(tag);
     document.getElementById("query-setter").value = tag;
-    window.scroll({ top: 0, left: 0, behavior: "smooth" });
+    window.scroll({ top: 0, left: 0, behavior: "auto" });
   };
 
   const handleBefore = () => {
@@ -60,7 +60,7 @@ function App() {
      
     };
     beforePosts();
-    window.scroll({ top: 0, left: 0, behavior: "smooth" });
+    window.scroll({ top: 0, left: 0, behavior: "auto" });
   };
 
   useEffect(() => {
@@ -156,7 +156,7 @@ function App() {
           </article>
         )}
 
-        {searchQuery !== '' && 
+        {searchQuery !== '' && items.length > 0 && 
         <button className="pagination" onClick={handleBefore}>
           View Older Posts
         </button>}

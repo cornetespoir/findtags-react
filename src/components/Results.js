@@ -8,9 +8,9 @@ const Results = ({ searchQuery }) => {
         </h3>
       ) : (
         <div className="text-center">
-          <h3>Welcome to findtags!</h3>
+          <h3>Welcome to findtags</h3>
           <p>
-          This can be used for resource blogs to find content, search your tracked tags, or make it easier to find new content!
+          Use this search to easily find new content!
           <br />
           Your results will display below. 
           </p>

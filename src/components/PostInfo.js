@@ -12,13 +12,12 @@ const Postinfo = ({ noteCount, postURL, reblogURL, dateTime }) => {
     <div className="info flex justify-between">
       <a href={postURL} className="flex align-center">
         <span>
-          {" "}
-          Posted on <span title={dateTime}>{newDate}</span> with {noteCount}{" "}
-          notes
+          Posted on <span title={dateTime}>{newDate}</span> with {noteCount}
+          {noteCount === 1 ? ' note' : ' notes'}
         </span>
       </a>
       <a href={`https://tumblr.com/reblog/${realReblogUrl}`} target="_blank">
-        <span class="fa fa-retweet"></span> Reblog
+        <span className="fa fa-retweet"></span> Reblog
       </a>
     </div>
   );

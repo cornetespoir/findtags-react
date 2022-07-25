@@ -240,7 +240,7 @@ h2:empty {
 }
 
 h2 {
-  margin-top:0;
+  margin:0 auto;
 }
 
 blockquote {
