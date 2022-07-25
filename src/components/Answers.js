@@ -1,6 +1,6 @@
 
 import React from 'react'
-const Answers = ({url, answer, asker, question, username, type}) => {
+const Answers = ({url, answer, asker, question, username}) => {
   
 return (
     <>

@@ -1,9 +1,9 @@
 
 import React from 'react'
-const Captions = ({url, content, username, type}) => {
+const Captions = ({url, content, username, sourceurl, sourcetitle, type}) => {
         if (type === 'answer') {
             return null
-        }
+        } 
     return (
        <div className="captions">
            <div className="reblog-header flex align-center">
@@ -11,6 +11,7 @@ const Captions = ({url, content, username, type}) => {
                <a href={url}>{username}</a>
            </div>
             {content !== "" &&  <div className="caption" dangerouslySetInnerHTML={{__html: content}}></div> } 
+            {sourceurl.length && <p class="content-source">Source: <a href={sourceurl}>{sourcetitle}</a></p>}
        </div>
     )
 }

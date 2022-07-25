@@ -18,7 +18,6 @@ params.set('tag', searchQuery)
 
 window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
 
-
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await fetch(`https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}`)
@@ -87,9 +86,9 @@ const handleBefore = () => {
 										</div>
 									) : null}
                   {item.type === 'answer' && 
-                    <Answers url={`https://${item.blog_name}.tumblr.com`} type={item.type} username={item.blog.name} answer={item.answer} question={item.question} asker={item.asking_name} />
+                    <Answers url={`https://${item.blog_name}.tumblr.com`} username={item.blog.name} answer={item.answer} question={item.question} asker={item.asking_name} />
                   }
-                  <Captions type={item.type} username={item.blog.name} content={item.type !== 'text' ? item.caption : item.body}/>
+                  <Captions type={item.type} username={item.blog.name} content={item.type !== 'text' ? item.caption : item.body} sourceurl={item.source_url != null && item.source_url} sourcetitle={item.source_title != null && item.source_title}/>
                   <PostInfo noteCount={item.note_count} dateTime={item.date} reblogURL={item.reblog_key} postURL={item.post_url}/>
                   <div className="tags">
                   <span class="fa fa-hashtag"></span>

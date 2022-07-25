@@ -209,3 +209,7 @@ button {
   opacity:.6;
   cursor:none;
 }
+
+.content-source {
+  padding-left:var(--padding-md)
+}
