@@ -17,7 +17,7 @@ const Postinfo = ({ noteCount, postURL, reblogURL, dateTime }) => {
           notes
         </span>
       </a>
-      <a href={`https://tumblr.com/reblog/${realReblogUrl}`}>
+      <a href={`https://tumblr.com/reblog/${realReblogUrl}`} target="_blank">
         <span class="fa fa-retweet"></span> Reblog
       </a>
     </div>

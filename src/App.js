@@ -23,7 +23,6 @@ function App() {
       );
       const data = await res.json();
       setItems(data.response);
-      console.log(data.response);
       return data;
     };
     fetchPosts();
@@ -153,6 +152,8 @@ function App() {
         <button className="pagination" onClick={handleBefore}>
           View Older Posts
         </button>
+
+        <p className="text-center"><a href="https://github.com/cornetespoir/findtags-react" target="_blank">Learn more about findtags</a></p>
       </main>
     </div>
   );
