@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/findtags-react/static/css/main.4c1cb63d.css",
-    "main.js": "/findtags-react/static/js/main.e5f2e626.js",
+    "main.js": "/findtags-react/static/js/main.74f1b546.js",
     "static/js/787.d29957b2.chunk.js": "/findtags-react/static/js/787.d29957b2.chunk.js",
     "index.html": "/findtags-react/index.html",
     "main.4c1cb63d.css.map": "/findtags-react/static/css/main.4c1cb63d.css.map",
-    "main.e5f2e626.js.map": "/findtags-react/static/js/main.e5f2e626.js.map",
+    "main.74f1b546.js.map": "/findtags-react/static/js/main.74f1b546.js.map",
     "787.d29957b2.chunk.js.map": "/findtags-react/static/js/787.d29957b2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4c1cb63d.css",
-    "static/js/main.e5f2e626.js"
+    "static/js/main.74f1b546.js"
   ]
 }
