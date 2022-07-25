@@ -2,6 +2,9 @@
   --white: 255,255,255;
   --black: 0,0,0;
   --background:#1e1d2c;
+  --margin-sm: .6rem;
+  --padding-sm: .4rem;
+  --padding-md: 1rem;
 
 }
 * {
@@ -12,16 +15,24 @@ body {
   background:var(--background);
   font-family: sans-serif;
   overflow-x:hidden;
+  word-wrap:break-word;
+  font-size:16px;
+  line-height:1.7rem;
 }
 
 input {
-  min-width:40vw;
+  width: 600px;
   font-size:1.12rem;
   background:rgb(var(--white));
   transform:translateY(-2rem);
   padding:1rem .8rem;
   border-radius:.6rem;
   border:1px solid rgba(var(--black),.2);
+}
+
+a {
+  color:rgba(var(--black),.8);
+  text-decoration:none;
 }
 
 ::placeholder {
@@ -36,7 +47,7 @@ header {
   position:relative;
   overflow:hidden;
   width:100vw;
-  height:50vh;
+  height:40vh;
   color:rgb(var(--white));
   background-size:cover;
   background-position:center center;
@@ -58,21 +69,22 @@ header :where(p, h1) {
 
 main {
   max-width:85vw;
-  margin:10vh auto;
+  margin:5vh auto;
   width:100%;
-  display: grid;
-	grid-gap: 1.4rem;
-	grid-template-columns: repeat(auto-fit,
-	minmax(22%, 1fr));
-	grid-auto-rows: 20%;
-	grid-auto-flow: row dense;
+  flex-direction:column;
+  display:flex;
 }
 
 article {
+  width:600px;
+  margin:5vh auto 10vh auto;
   position:relative;
   object-fit:cover;
+  background:rgb(var(--white))
 }
-
+.text-center {
+  text-align:center;
+}
 .flex {
   display:flex;
   flex-wrap:wrap;
@@ -84,57 +96,116 @@ article {
   align-content:center;
 }
 
-.caption {
-  position:absolute;
-  padding:1rem;
-  width:100%;
-  opacity:0;
-  top:0;
-  left:0;
-  color:rgb(var(--white));
-  background:rgba(var(--black), .6);
-  height:100%;
-  z-index:2;
-  text-decoration:none;
+.align-center {
+  align-items:center;
+}
+.justify-between {
+  justify-content:space-between;
+}
+.rounded {
+  border-radius:.6rem;
 }
 
-article:hover .caption, article:hover:before{
-  opacity:1;
+main section {
+  background:rgb(var(--white));
+  max-width:600px;
+  padding: var(--padding-md);
+  margin: auto;
 }
 
-article:before {
-  content:attr(dimensions);
-  position:absolute;
-  background:black;
-  padding:.4rem;
-  bottom:0;
-  opacity:0;
-  z-index:3;
-  border-top-right-radius:1rem;
-  color:white;
+img {
+  max-width:100%;
 }
 
-.user {
-  width:100%;
-  font-size:1.2rem;
-  font-weight:bold;
-}
-.user-avatar {
-  width:40px;
-  height:40px;
-  margin-right:.6rem;
-  border-radius:100%;
+.search-results {
+  background:rgb(var(--white));
+  padding: 0 var(--padding-md);
+  border-radius: var(--padding-sm);
+  max-width:600px;
+  margin:auto;
 }
 
-.tall {
-	grid-row-end: span 2;
+.search-results span {
+  background: #eee;
+  padding: var(--padding-sm);
+  border-radius: var(--padding-sm);
+  border:1px solid rgba(var(--black),.08)
+}
+.avatar, .reblog-header img {
+  max-height:30px;
+  margin-right:var(--margin-sm)
 }
 
-.wide {
-	grid-column-end: span 2;
+.caption, .reblog-header, .tags, .info {
+  padding:var(--padding-md);
+  border-bottom:1px solid rgba(var(--black),.2)
 }
 
-.big {
-	grid-row-end: span 2;
-	grid-column-end: span 2;
+.tags button {
+  background: rgba(var(--black),.08);
+  border: 0;
+  padding: var(--padding-sm);
+  border-radius: var(--padding-sm);
+  display:inline-block;
+  font-size:16px;
+  margin: var(--padding-sm)
+}
+
+.info .fa {
+  margin-right: var(--padding-sm)
+}
+
+.ask {
+ 
+  padding: var(--padding-md) 0 0 0;
+}
+.questions {
+  margin: var(--padding-md);
+}
+.question {
+  margin-top:var(--padding-md);
+  border-radius:var(--padding-md);
+  border-top-left-radius:0;
+  padding:var(--padding-md);
+  background:rgba(var(--black),.08);
+}
+
+.loading {
+  animation: loading 1s 1;
+}
+
+@keyframes loading {
+    0% {
+        opacity:0;
+    }
+
+    100% {
+      opacity:1;
+    }
+}
+
+.pagination {
+  margin:auto;
+  background:rgba(var(--white),.8);
+  padding: var(--padding-md);
+  border-radius:30px;
+  border:0;
+
+}
+
+iframe, video, embed {
+  max-width:100%;
+}
+
+button {
+  cursor:pointer;
+}
+
+.caption a {
+  border-bottom:1px solid skyblue;
+}
+
+.tags button:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3), :nth-of-type(4), :nth-of-type(5)) {
+  opacity:.6;
+  cursor:none;
 }

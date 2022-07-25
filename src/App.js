@@ -1,52 +1,113 @@
-import Header from './components/Header'
+
+import Captions from './components/Captions'
+import PostInfo from './components/PostInfo'
+import Answers from './components/Answers'
 import { useState, useEffect } from 'react'
 
+const THE_KEY = process.env.REACT_APP_TUMBLR_API_KEY
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState('findtags.intro')
   const [items, setItems] = useState([])
-  const [headerBg, setHeaderBg] = useState([])
+  const [before, setBefore] = useState([])
+  const [animation, setAnimation] = useState('')
+
+
+const params = new URLSearchParams(window.location.search);
+params.set('tag', searchQuery)
+
+window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+
 
   useEffect(() => {
-    const fetchGifs = async () => {
-      const res = await fetch('https://api.giphy.com/v1/gifs/search?api_key=&limit=25&q=' + searchQuery)
+    const fetchPosts = async () => {
+      const res = await fetch(`https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}`)
       const data = await res.json ()
-      setHeaderBg(data.data[Math.floor(Math.random()*items.length)].images.downsized_medium.url)
-      setItems(data.data)
+      setItems(data.response)
       return data
     }
-    fetchGifs()
+    fetchPosts()
+    setAnimation('')
   }, [searchQuery])
 
-  // fetch Gifs
-const onSubmit = (e) => {
-  e.preventDefault()
 
+const onSubmit = (e) => {
+    e.preventDefault()
+}
+const setChangeQuery = (e) => {
+  if (e.target.value.length)
+  setSearchQuery(e.target.value)
+
+}
+
+const handleTag = (tag) => {
+    setSearchQuery(tag)
+    document.getElementById("query-setter").value = tag;
+    window.scroll({top: 0, left: 0, behavior: 'smooth'});
+}
+
+const handleBefore = () => {
+  const beforePosts = async () => {
+    const res = await fetch(`https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}&before=${before}`)
+    const data = await res.json ()
+    setBefore(data.response.at(-1).timestamp)
+    setItems(data.response)
+    return data
+  }
+  beforePosts()
+  window.scroll({top: 0, left: 0, behavior: 'smooth'})
 }
 
 
   return (
     <div className="App">
-        <Header style={{ 
-  backgroundImage: "url(" + headerBg + ")"}}/>
+        <header className={'flex flex-center'}>
+            <h1>Findtags</h1>
+            <h2>Enter a word to search for posts that use that tag.</h2>
+        </header>
             <form onSubmit={onSubmit} className={'flex flex-center'}>
-            <input type="text" placeholder="Search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>   
-        </form>   
-        <main>
-           {items.map((item) =>(
-            <article key={item.id} dimensions={item.images.original.width + ' x ' + item.images.original.height} className={item.images.original.width > 450  && item.images.original.height > 450 ? ('big') : ('') || item.images.original.width > 450 && item.images.original.height < 300 ? ('wide') : ('') || item.images.original.height > 450 && item.images.original.width < 400? ('tall') : ('')}>
-                <img src={item.images.downsized_medium.url} className={item.images.original.width + '-width gif-result'}/>
-            <a className={'caption flex flex-center'} title={'View on Giphy'} href={item.url} target={'_blank'}> 
-            {item.user !== undefined ? (
-            <div className={'user flex flex-center'}>
-              <img src={item.user.avatar_url} className={'user-avatar'}/>
-              <span>{item.user.display_name}</span>
-              </div>
-            ) : '' }
-              {item.title}
-            </a>
+            <input type="text" id="query-setter" placeholder="Search" onChange={(e) => setChangeQuery(e)}/>   
+            </form>   
+            <div className="flex flex-center search-results">
+            <h3>Showing posts tagged with <span>#{searchQuery}</span></h3>
+            </div>
+        <main className={animation}>
+          
+           {items.length > 0 ? items.map((item) =>(
+            <article className="rounded" key={item.id} id={item.id} >      
+                  {item.type === "photo" ? (
+										<div className="photo">
+											<div className="photoset-grid" photoset-layout={item.photoset_layout}>
+												{item.photos.map((photos, i) => {
+													return (
+															<div key={item.photos[i].alt_sizes[1].url}>
+																<img src={item.photos[i].alt_sizes[1].url} alt={item.photos[i].caption} />
+															</div>
+													);
+												})}
+											</div>
+										</div>
+									) : null}
+                  {item.type === 'answer' && 
+                    <Answers url={`https://${item.blog_name}.tumblr.com`} type={item.type} username={item.blog.name} answer={item.answer} question={item.question} asker={item.asking_name} />
+                  }
+                  <Captions type={item.type} username={item.blog.name} content={item.type !== 'text' ? item.caption : item.body}/>
+                  <PostInfo noteCount={item.note_count} dateTime={item.date} reblogURL={item.reblog_key} postURL={item.post_url}/>
+                  <div className="tags">
+                  <span class="fa fa-hashtag"></span>
+                  {item.tags.map((tag) => {
+                    return (
+                      <button onClick={(e) => handleTag(tag)}>{tag}</button>
+                    )
+			            })}
+                  </div>
             </article>
-          ))} 
+          )) : 
+          <article>
+            <div class="caption"><h2>No results for {searchQuery}</h2></div>
+          </article>
+          } 
+          <button className='pagination' onClick={handleBefore}>View Older Posts</button>
         </main> 
     </div>
   );
