@@ -1,15 +1,16 @@
+import { React, useState, useEffect } from "react";
 import Captions from "./components/Captions";
 import PostInfo from "./components/PostInfo";
 import Answers from "./components/Answers";
-import { React, useState, useEffect } from "react";
+import Results from "./components/Results";
+
 
 const THE_KEY = process.env.REACT_APP_TUMBLR_API_KEY;
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState("findtags.intro");
+  const [searchQuery, setSearchQuery] = useState("");
   const [items, setItems] = useState([]);
   const [before, setBefore] = useState([]);
-  const [animation, setAnimation] = useState("");
 
   const params = new URLSearchParams(window.location.search);
   params.set("tag", searchQuery);
@@ -17,23 +18,27 @@ function App() {
   window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
 
   useEffect(() => {
+    if (searchQuery !== '') {
     const fetchPosts = async () => {
       const res = await fetch(
         `https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}`
       );
-      const data = await res.json();
-      setItems(data.response);
-      return data;
-    };
+        const data = await res.json();      
+        setItems(data.response);
+        return data;
+    }
     fetchPosts();
-    setAnimation("");
+    } 
+    else {
+      setItems('')
+    }
   }, [searchQuery]);
 
   const onSubmit = (e) => {
     e.preventDefault();
   };
   const setChangeQuery = (e) => {
-    if (e.target.value.length) setSearchQuery(e.target.value);
+   setSearchQuery(e.target.value);
   };
 
   const handleTag = (tag) => {
@@ -46,18 +51,22 @@ function App() {
     const beforePosts = async () => {
       const res = await fetch(
         `https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}&before=${before}`
-      );
-      const data = await res.json();
-      setBefore(data.response.at(-1).timestamp);
-      setItems(data.response);
-      return data;
+      )
+        const data = await res.json().then(() => {;
+        setBefore(data.response.at(-1).timestamp);
+        setItems(data.response);
+        return data;
+      });
+     
     };
     beforePosts();
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
+    if (searchQuery !== '') {
     handleBefore()
+    }
   }, [])
   return (
     <div className="App">
@@ -76,12 +85,8 @@ function App() {
           onChange={(e) => setChangeQuery(e)}
         />
       </form>
-      <div className="flex flex-center search-results">
-        <h3>
-          Showing posts tagged with <span>#{searchQuery}</span>
-        </h3>
-      </div>
-      <main className={animation}>
+      <Results searchQuery={searchQuery} />
+      <main>
         {items.length > 0 ? (
           items.map((item) => (
             <article className="rounded" key={item.id} id={item.id}>
@@ -142,16 +147,20 @@ function App() {
               </div>
             </article>
           ))
-        ) : (
+        ) : searchQuery === '' ? ('') :
+         (
           <article>
             <div className="caption rounded text-center">
               <h2>No results for {searchQuery}</h2>
             </div>
           </article>
         )}
+
+        {searchQuery !== '' && 
         <button className="pagination" onClick={handleBefore}>
           View Older Posts
-        </button>
+        </button>}
+        
 
         <p className="text-center"><a href="https://github.com/cornetespoir/findtags-react" target="_blank">Learn more about findtags</a></p>
       </main>
