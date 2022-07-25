@@ -56,6 +56,10 @@ function App() {
     beforePosts();
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    handleBefore()
+  }, [])
   return (
     <div className="App">
       <header className={"flex flex-center"}>
@@ -113,6 +117,7 @@ function App() {
               <Captions
                 type={item.type}
                 title={item.title}
+                url={`https://${item.blog_name}.tumblr.com`}
                 username={item.blog.name}
                 content={
                   item.type === "text"

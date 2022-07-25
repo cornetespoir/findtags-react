@@ -5,6 +5,7 @@
   --margin-sm: 0.6rem;
   --padding-sm: 0.4rem;
   --padding-md: 1rem;
+  --padding-lg: 1.4rem;
 }
 * {
   box-sizing: border-box;
@@ -141,7 +142,7 @@ img {
 .reblog-header,
 .info,
 .tags {
-  padding: var(--padding-md);
+  padding: var(--padding-lg);
   border-bottom: 1px solid rgba(var(--black), 0.12);
 }
 
@@ -236,6 +237,10 @@ button {
 p:empty,
 h2:empty {
   display: none;
+}
+
+h2 {
+  margin-top:0;
 }
 
 blockquote {
