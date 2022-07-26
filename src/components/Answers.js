@@ -1,5 +1,6 @@
 import React from "react";
-const Answers = ({ url, answer, asker, question, username }) => {
+const Answers = ({ url, type, answer, asker, question, username }) => {
+  if (type !== 'answer') return null;
   return (
     <>
       <div className="ask">

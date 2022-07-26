@@ -1,5 +1,7 @@
 import React from "react";
-const Links = ({ excerpt, linkImage, linkURL, summary, sourceTitle }) => {
+const Links = ({ excerpt, linkImage, type, linkURL, summary, sourceTitle }) => {
+
+  if (type !== "link") return null
   return (
     <div className="caption">
         <a href={linkURL} className="link-container">
