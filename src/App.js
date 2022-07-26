@@ -4,6 +4,7 @@ import PostInfo from "./components/PostInfo";
 import Answers from "./components/Answers";
 import Results from "./components/Results";
 import Links from "./components/Links";
+import Photos from "./components/Photos";
 import Videos from "./components/Videos";
 
 
@@ -18,21 +19,24 @@ function App() {
   params.set("tag", searchQuery);
   window.history.replaceState({}, "", `${window.location.pathname}`);
   useEffect(() => {
-    if (searchQuery !== '') {
-    const fetchPosts = async () => {
-      const res = await fetch(
-        `https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}`
-      );
-        const data = await res.json();      
+    if (searchQuery !== "") {
+      const fetchPosts = async () => {
+        const res = await fetch(
+          `https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}`
+        );
+        const data = await res.json();
         setItems(data.response);
-        console.log(data.response)
-        window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
+        setBefore(data.response.at(-1).timestamp);
+        window.history.replaceState(
+          {},
+          "",
+          `${window.location.pathname}?${params}`
+        );
         return data;
-    }
-    fetchPosts();
-    } 
-    else {
-      setItems('')
+      };
+      fetchPosts();
+    } else {
+      setItems("");
     }
   }, [searchQuery]);
 
@@ -55,21 +59,20 @@ function App() {
     const beforePosts = async () => {
       const res = await fetch(
         `https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}&before=${before}`
-      )
-        const data = await res.json()
-        setBefore(data.response.at(-1).timestamp);
-        setItems(data.response);
-        return data;
+      );
+      const data = await res.json();
+      setBefore(data.response.at(-1).timestamp);
+      setItems(data.response);
     };
     beforePosts();
     window.scroll({ top: 0, left: 0, behavior: "auto" });
   };
 
   useEffect(() => {
-    if (searchQuery !== '') {
-    handleBefore()
+    if (searchQuery !== "") {
+      handleBefore();
     }
-  }, [])
+  }, []);
   return (
     <div className="App">
       <header className={"flex flex-center"}>
@@ -91,44 +94,39 @@ function App() {
       <main>
         {items.length > 0 ? (
           items.map((item) => (
-            <article className={`rounded ${item.type}-post`} key={item.id} id={item.id}>
-              {item.type === "photo" ? (
-                <div className="photo">
-                  <div
-                    className="photoset-grid"
-                    photoset-layout={item.photoset_layout}
-                  >
-                    {item.photos.map((photos, i) => {
-                      return (
-                        <div key={item.photos[i].alt_sizes[1].url}>
-                          <img
-                            src={item.photos[i].alt_sizes[1].url}
-                            alt={item.photos[i].caption}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : null}
-              {item.type === "video" && (
-                <Videos player={item.player[2].embed_code} />
-              )}
-              {item.type ===  "audio" && (
-                <Videos player={item.player} />
-              )}
-              {item.type === "link" && (
-                <Links excerpt={item.excerpt} linkImage={item.link_image} linkURL={item.url} summary={item.summary} sourceTitle={item.source_title}/>
-              )}
-              {item.type === "answer" && (
-                <Answers
-                  url={`https://${item.blog_name}.tumblr.com`}
-                  username={item.blog.name}
-                  answer={item.answer}
-                  question={item.question}
-                  asker={item.asking_name}
-                />
-              )}
+            <article
+              className={`rounded ${item.type}-post`}
+              key={item.id}
+              id={item.id}
+            >
+              <Photos 
+                type={item.type} 
+                photos={item.photos}
+              />
+              <Videos
+                type={item.type}
+                player={
+                  item.type === "video"
+                    ? item.player[2].embed_code
+                    : item.player
+                }
+              />
+              <Links
+                excerpt={item.excerpt}
+                type="{item.type}"
+                linkImage={item.link_image}
+                linkURL={item.url}
+                summary={item.summary}
+                sourceTitle={item.source_title}
+              />
+              <Answers
+                url={`https://${item.blog_name}.tumblr.com`}
+                username={item.blog.name}
+                answer={item.answer}
+                question={item.question}
+                asker={item.asking_name}
+                type={item.type}
+              />
               <Captions
                 type={item.type}
                 title={item.title}
@@ -138,9 +136,9 @@ function App() {
                   item.type === "text"
                     ? item.body
                     : item.type === "quote"
-                    ? item.text 
-                    : item.type === 'link'
-                    ? item.description 
+                    ? item.text
+                    : item.type === "link"
+                    ? item.description
                     : item.caption
                 }
                 sourceurl={item.source_url != null && item.source_url}
@@ -153,27 +151,34 @@ function App() {
                 postURL={item.post_url}
               />
               <div className="tags">
-                <span className="fa fa-hashtag"></span>
                 {item.tags.map((tag) => {
                   return <button onClick={(e) => handleTag(tag)}>{tag}</button>;
                 })}
               </div>
             </article>
           ))
-        ) : searchQuery === '' ? ('') :
-         (
+        ) : searchQuery === "" ? (
+          ""
+        ) : (
           <article>
             <div className="caption rounded text-center">
               <h2>No results for {searchQuery}</h2>
             </div>
           </article>
         )}
-
-        {searchQuery !== '' && items.length > 0 && 
-        <button className="pagination" onClick={handleBefore}>
-          View Older Posts
-        </button>}
-        <p className="text-center"><a href="https://github.com/cornetespoir/findtags-react" target="_blank">Learn more about findtags</a></p>
+        {searchQuery !== "" && (
+          <button className="pagination" onClick={handleBefore}>
+            View Older Posts
+          </button>
+        )}
+        <p className="text-center">
+          <a
+            href="https://github.com/cornetespoir/findtags-react"
+            target="_blank"
+          >
+            Learn more about findtags
+          </a>
+        </p>
       </main>
     </div>
   );
