@@ -3,8 +3,8 @@ const Answers = ({ url, answer, asker, question, username }) => {
   return (
     <>
       <div className="ask">
-        <div class="questions rounded">
-          <div class="asker-header flex align-center">
+        <div className="questions rounded">
+          <div className="asker-header flex align-center">
             <img
               src={
                 asker === "Anonymous"

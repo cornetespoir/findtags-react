@@ -31,7 +31,7 @@ const Captions = ({
         </div>
       )}
       {sourceurl.length && (
-        <p class="content-source">
+        <p className="content-source">
           Source: <a href={sourceurl}>{sourcetitle}</a>
         </p>
       )}

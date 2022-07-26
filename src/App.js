@@ -3,6 +3,8 @@ import Captions from "./components/Captions";
 import PostInfo from "./components/PostInfo";
 import Answers from "./components/Answers";
 import Results from "./components/Results";
+import Links from "./components/Links";
+import Videos from "./components/Videos";
 
 
 const THE_KEY = process.env.REACT_APP_TUMBLR_API_KEY;
@@ -14,9 +16,7 @@ function App() {
 
   const params = new URLSearchParams(window.location.search);
   params.set("tag", searchQuery);
-
-  window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
-
+  window.history.replaceState({}, "", `${window.location.pathname}`);
   useEffect(() => {
     if (searchQuery !== '') {
     const fetchPosts = async () => {
@@ -25,6 +25,8 @@ function App() {
       );
         const data = await res.json();      
         setItems(data.response);
+        console.log(data.response)
+        window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
         return data;
     }
     fetchPosts();
@@ -38,7 +40,9 @@ function App() {
     e.preventDefault();
   };
   const setChangeQuery = (e) => {
-   setSearchQuery(e.target.value);
+    if (e.keyCode === 13) {
+      setSearchQuery(e.target.value);
+    }
   };
 
   const handleTag = (tag) => {
@@ -52,12 +56,10 @@ function App() {
       const res = await fetch(
         `https://api.tumblr.com/v2/tagged?api_key=${THE_KEY}&tag=${searchQuery}&before=${before}`
       )
-        const data = await res.json().then(() => {;
+        const data = await res.json()
         setBefore(data.response.at(-1).timestamp);
         setItems(data.response);
         return data;
-      });
-     
     };
     beforePosts();
     window.scroll({ top: 0, left: 0, behavior: "auto" });
@@ -82,14 +84,14 @@ function App() {
           type="text"
           id="query-setter"
           placeholder="Search"
-          onChange={(e) => setChangeQuery(e)}
+          onKeyDown={(e) => setChangeQuery(e)}
         />
       </form>
       <Results searchQuery={searchQuery} />
       <main>
         {items.length > 0 ? (
           items.map((item) => (
-            <article className="rounded" key={item.id} id={item.id}>
+            <article className={`rounded ${item.type}-post`} key={item.id} id={item.id}>
               {item.type === "photo" ? (
                 <div className="photo">
                   <div
@@ -109,6 +111,15 @@ function App() {
                   </div>
                 </div>
               ) : null}
+              {item.type === "video" && (
+                <Videos player={item.player[2].embed_code} />
+              )}
+              {item.type ===  "audio" && (
+                <Videos player={item.player} />
+              )}
+              {item.type === "link" && (
+                <Links excerpt={item.excerpt} linkImage={item.link_image} linkURL={item.url} summary={item.summary} sourceTitle={item.source_title}/>
+              )}
               {item.type === "answer" && (
                 <Answers
                   url={`https://${item.blog_name}.tumblr.com`}
@@ -127,7 +138,9 @@ function App() {
                   item.type === "text"
                     ? item.body
                     : item.type === "quote"
-                    ? item.text
+                    ? item.text 
+                    : item.type === 'link'
+                    ? item.description 
                     : item.caption
                 }
                 sourceurl={item.source_url != null && item.source_url}
@@ -160,8 +173,6 @@ function App() {
         <button className="pagination" onClick={handleBefore}>
           View Older Posts
         </button>}
-        
-
         <p className="text-center"><a href="https://github.com/cornetespoir/findtags-react" target="_blank">Learn more about findtags</a></p>
       </main>
     </div>
