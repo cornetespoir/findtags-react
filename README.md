@@ -8,9 +8,13 @@ This version has not been officially released on the findtags blog, but is open 
 ## How to use: 
 - Go to the live page and starts searching for the tag you are interested in. It should start pulling up the most recent posts using that tag! 
 - You can view older posts by clicking the button at the bottom of the page. It should refresh the results. If no new results are showing, you are already on the last page!
+
 ## Current version:
 Currently the following post types are supported
 - Text/NPF posts (all mobile posts are supported)
 - Quote posts
 - Photo posts and photosets
 - Answer posts
+- Link Posts
+- Video Posts
+- Chat Posts
