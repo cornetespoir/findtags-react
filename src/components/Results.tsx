@@ -1,5 +1,9 @@
 import React from "react";
-const Results = ({ searchQuery }) => {
+
+interface ResultsProps {
+  searchQuery: string;
+}
+const Results = ({ searchQuery }: ResultsProps) => {
   return (
     <div className="caption flex flex-center search-results">
       {searchQuery.length ? (

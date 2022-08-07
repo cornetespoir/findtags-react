@@ -1,4 +1,5 @@
-import { React, useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import Captions from "./components/Captions";
 import PostInfo from "./components/PostInfo";
 import Answers from "./components/Answers";
@@ -6,7 +7,6 @@ import Results from "./components/Results";
 import Links from "./components/Links";
 import Photos from "./components/Photos";
 import Videos from "./components/Videos";
-
 
 const THE_KEY = process.env.REACT_APP_TUMBLR_API_KEY;
 
@@ -36,7 +36,7 @@ function App() {
       };
       fetchPosts();
     } else {
-      setItems("");
+      setItems([]);
     }
   }, [searchQuery]);
 
@@ -51,8 +51,10 @@ function App() {
 
   const handleTag = (tag) => {
     setSearchQuery(tag);
-    document.getElementById("query-setter").value = tag;
-    window.scroll({ top: 0, left: 0, behavior: "auto" });
+    if (tag != null) {
+      (document.getElementById("query-setter") as HTMLInputElement).value = tag;
+      window.scroll({ top: 0, left: 0, behavior: "auto" });
+    }
   };
 
   const handleBefore = () => {
@@ -68,11 +70,6 @@ function App() {
     window.scroll({ top: 0, left: 0, behavior: "auto" });
   };
 
-  useEffect(() => {
-    if (searchQuery !== "") {
-      handleBefore();
-    }
-  }, []);
   return (
     <div className="App">
       <header className={"flex flex-center"}>
@@ -95,64 +92,63 @@ function App() {
         {items.length > 0 ? (
           items.map((item) => (
             <article
-              className={`rounded ${item.type}-post`}
-              key={item.id}
-              id={item.id}
+              className={`rounded ${item["type"]}-post`}
+              key={item["id"]}
+              id={item["id"]}
             >
-              <Photos 
-                type={item.type} 
-                photos={item.photos}
-              />
-              <Videos
-                type={item.type}
-                player={
-                  item.type === "video"
-                    ? item.player[2].embed_code
-                    : item.player
-                }
-              />
+              <Photos type={item["type"]} photos={item["photos"]} />
+              {item["type"] === "video" ? (
+                <Videos
+                  type={item["type"]}
+                  player={item["player"][2]["embed_code"]}
+                />
+              ) : item["type"] === "audio" ? (
+                <Videos type={item["type"]} player={item["player"]} />
+              ) : null}
               <Links
-                excerpt={item.excerpt}
-                type="{item.type}"
-                linkImage={item.link_image}
-                linkURL={item.url}
-                summary={item.summary}
-                sourceTitle={item.source_title}
+                excerpt={item["excerpt"]}
+                type="{item['type']}"
+                linkImage={item["link_image"]}
+                linkURL={item["url"]}
+                summary={item["summary"]}
+                sourceTitle={item["source_title"]}
               />
               <Answers
-                url={`https://${item.blog_name}.tumblr.com`}
-                username={item.blog.name}
-                answer={item.answer}
-                question={item.question}
-                asker={item.asking_name}
-                type={item.type}
+                url={`https://${item["blog_name"]}.tumblr.com`}
+                username={item["blog_name"]}
+                answer={item["answer"]}
+                question={item["question"]}
+                asker={item["asking_name"]}
+                type={item["type"]}
               />
               <Captions
-                type={item.type}
-                title={item.title}
-                url={`https://${item.blog_name}.tumblr.com`}
-                username={item.blog.name}
+                type={item["type"]}
+                title={item["title"]}
+                url={`https://${item["blog_name"]}.tumblr.com`}
+                username={item["blog_name"]}
                 content={
-                  item.type === "text"
-                    ? item.body
-                    : item.type === "quote"
-                    ? item.text
-                    : item.type === "link"
-                    ? item.description
-                    : item.caption
+                  item["type"] === "text"
+                    ? item["body"]
+                    : item["type"] === "quote"
+                    ? item["text"]
+                    : item["type"] === "link"
+                    ? item["description"]
+                    : item["caption"]
                 }
-                sourceurl={item.source_url != null && item.source_url}
-                sourcetitle={item.source_title != null && item.source_title}
+                sourceurl={item["source_url"] != null && item["source_url"]}
+                sourcetitle={
+                  item["source_title"] != null && item["source_title"]
+                }
               />
               <PostInfo
-                noteCount={item.note_count}
-                dateTime={item.date}
-                reblogURL={item.reblog_key}
-                postURL={item.post_url}
+                noteCount={item["note_count"]}
+                dateTime={item["date"]}
+                reblogURL={item["reblog_key"]}
+                postURL={item["post_url"]}
               />
               <div className="tags">
-                {item.tags.map((tag) => {
-                  return <button onClick={(e) => handleTag(tag)}>{tag}</button>;
+                {(item["tags"] as []).map((tag, i) => {
+                  return <button key={`${tag}-${i}`} onClick={(e) => handleTag(tag)}>{tag}</button>;
                 })}
               </div>
             </article>
@@ -175,6 +171,7 @@ function App() {
           <a
             href="https://github.com/cornetespoir/findtags-react"
             target="_blank"
+            rel="noreferrer"
           >
             Learn more about findtags
           </a>
