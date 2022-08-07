@@ -10,7 +10,16 @@ This version has not been officially released on the findtags blog, but is open 
 - You can view older posts by clicking the button at the bottom of the page. It should refresh the results. If no new results are showing, you are already on the last page!
 
 ## Current version:
-Currently the following post types are supported
+
+Returning features:
+- [x] Search function
+- [x] Reblog button
+- [x] Date (with better formatting)
+- [x] View older posts
+- [x] Not found page
+
+
+As of 8/7/22 the following post types are supported:
 - Text/NPF posts (all mobile posts are supported)
 - Quote posts
 - Photo posts and photosets
@@ -18,3 +27,4 @@ Currently the following post types are supported
 - Link Posts
 - Video Posts
 - Chat Posts
+- Audio Posts
