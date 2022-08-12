@@ -17,13 +17,13 @@ const Postinfo = ({ noteCount, postURL, reblogURL, dateTime }: PostProps) => {
 
   return (
     <div className="info flex justify-between">
-      <a href={postURL} className="flex align-center">
+      <a href={postURL} className="flex align-center note-count">
         <span>
           Posted on <span title={dateTime}>{newDate}</span> with {noteCount}
           {noteCount === 1 ? ' note' : ' notes'}
         </span>
       </a>
-      <a href={`https://tumblr.com/reblog/${realReblogUrl}`} rel="noreferrer" target="_blank">
+      <a href={`https://tumblr.com/reblog/${realReblogUrl}`} className="reblog" rel="noreferrer" target="_blank">
         <span className="fa fa-retweet"></span> Reblog
       </a>
     </div>

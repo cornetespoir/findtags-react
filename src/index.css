@@ -22,7 +22,7 @@ body {
   line-height: 1.5;
 }
 
-input {
+.search input {
   width: 540px;
   font-size: 20px;
   background: rgb(var(--white));
@@ -32,6 +32,55 @@ input {
   border: 1px solid rgba(var(--black), 0.2);
 }
 
+.hidden, .hidden-word {
+  color:transparent;
+  border-color:red;
+}
+
+.link-removed-true .info {
+  display:none;
+}
+
+.hidden:before, .hidden-word:before {
+  content:'This post contains blocked tags! It has been removed from your search.';
+  color:black;
+  display:block;
+  padding:var(--padding-md) var(--padding-lg) 0;
+}
+
+.hidden-word:before {
+  content:'This post contains a word from your blocked tags! It has been removed from your search.';
+}
+
+.hidden img, .hidden > :not(:where(.tags, .info)), .hidden-word img, .hidden-word > :not(:where(.tags, .info))  {
+  display:none
+}
+
+.hidden .info, .hidden-word .info {
+  color:black!important
+}
+
+.hidden .tags:before {
+  content:'Blocked tags: ';
+  color:black;
+}
+.hidden .tags button:not(.blocked-tag), .hidden-word .tags button {
+  display:none;
+}
+.hidden .blocked-tag {
+  color:red
+}
+.hidden .reblog, .hidden-word .reblog {
+  display:none;
+}
+
+.hidden-word .tags:before {
+  color:black;
+  content:'Contained these blocked words: '
+}
+.hidden-word .tags {
+  color:red!important;
+}
 a {
   color: rgba(var(--black), 0.8);
   text-decoration: none;
@@ -212,7 +261,7 @@ img {
   border-radius: var(--padding-md);
   border-top-left-radius: 0;
   padding: var(--padding-md);
-  background: rgba(var(--black), 0.08);
+  border:1px solid rgba(var(--black), 0.2);
 }
 
 .loading {
@@ -335,4 +384,108 @@ blockquote {
   text-align: center;
   padding: var(--padding-lg);
   margin: var(--padding-md);
+}
+
+.filter-items {
+  position:fixed;
+  left:10vh;
+  top:10vh;
+  width:300px;
+  z-index:9;
+  background:rgb(var(--white));
+  padding:var(--padding-lg);
+  border-radius: 0.6rem;
+  border: 1px solid rgba(var(--black), 0.2);
+}
+
+.filter-items form {
+  display:flex;
+  width:100%;
+  justify-content:space-between;
+}
+
+.filter-items input {
+  padding:calc(var(--padding-sm) * 2) var(--padding-sm);
+  width:calc(100% - 90px);
+  border: 1px solid rgba(var(--black), 0.2);
+  border-radius: 0.6rem;
+}
+
+.filter-items button {
+  width:75px;
+  border: 1px solid rgba(var(--black), 0.2);
+  border-radius: 0.6rem;
+}
+
+.filter-card {
+  display:flex;
+  width:100%;
+  margin-top:var(--margin-sm);
+  border: 1px solid rgba(var(--black), 0.2);
+  align-items:center;
+  border-radius: 0.6rem;
+  justify-content:space-between;
+}
+
+.filter-card button {
+  background:transparent;
+  border:0;
+  color:rgb(167, 39, 39);
+  font-weight:bold;
+}
+
+.filter-card p {
+  padding:var(--padding-sm);
+  margin:0;
+}
+
+.toggleNote {
+  background:transparent;
+  width:250px!important;
+  margin-top:calc(var(--margin-sm) * 2 );
+  padding:var(--padding-sm)!important;
+  font-size:16px;
+  border:0px!important;
+  text-align:left;
+}
+
+.remove-true {
+  background:rgba(92, 186, 89, 0.199);
+  color:rgb(20, 94, 20);
+}
+
+.toggleNote i {
+  margin-right:calc(var(--margin-sm) / 2)
+}
+
+.remove-true i:before {
+  content:'\f14a'
+}
+
+.filter-items h2 {
+  font-size:1.34rem;
+  margin-bottom:var(--margin-sm)
+}
+
+
+.filter-container {
+  max-height:200px;
+  overflow:auto;
+  margin-top:var(--margin-sm)
+}
+
+html {
+  --scrollbarBG: #eeeaea;
+  --thumbBG: #787d82;
+}
+
+.filter-container {
+  padding-right:var(--margin-sm);
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+
+.filter-items small a {
+  color: rgb(38, 70, 130);
+  border-bottom:1px solid  rgb(38, 70, 130)
 }

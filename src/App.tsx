@@ -7,6 +7,7 @@ import Results from "./components/Results";
 import Links from "./components/Links";
 import Photos from "./components/Photos";
 import Videos from "./components/Videos";
+import FilterInput from "./components/FilterInput";
 
 const THE_KEY = process.env.REACT_APP_TUMBLR_API_KEY;
 
@@ -40,6 +41,56 @@ function App() {
     }
   }, [searchQuery]);
 
+	const filters = JSON.parse(localStorage.getItem('filters') as string);
+  const removeLink = JSON.parse(localStorage.getItem('removeLinks') as string);
+
+  function updateArticles() {
+      filters.forEach((filter) => {
+        const tags = document.querySelectorAll('article .tags button')
+        const captions = document.querySelectorAll('article .caption')
+        captions.forEach((caption) => {
+          if (caption.innerHTML.includes(filter.filter.toLowerCase())) {
+            caption.closest('article')?.classList.add('hidden-word')
+            const taglist = caption.closest('article')?.querySelector('.tags')
+            if (taglist) {
+              taglist.innerHTML = filter.filter
+            }
+            const noteCount = caption.closest('article')?.querySelector('.note-count')
+            
+            if (noteCount) {
+              if (removeLink === false) {
+                noteCount.innerHTML = 'View original post'
+              }
+              else {
+                noteCount.remove()
+              }
+            }
+          }
+          })
+        tags.forEach((tag) => {
+            if (tag.innerHTML.toLowerCase() === (filter.filter.toLowerCase())) {
+                tag.closest('article')?.classList.add('hidden')
+                tag.classList.add('blocked-tag')
+                const noteCount = tag.closest('article')?.querySelector('.note-count')
+                if (noteCount) {
+                  if (removeLink === false) {
+                    noteCount.innerHTML = 'View original post'
+                  }
+                  else {
+                    noteCount.remove()
+                  }
+                }
+              
+            }
+        })
+  
+    }
+  )}
+useEffect(() => {
+ updateArticles()
+})
+ 
+
   const onSubmit = (e) => {
     e.preventDefault();
   };
@@ -54,6 +105,7 @@ function App() {
     if (tag != null) {
       (document.getElementById("query-setter") as HTMLInputElement).value = tag;
       window.scroll({ top: 0, left: 0, behavior: "auto" });
+      updateArticles()
     }
   };
 
@@ -79,7 +131,7 @@ function App() {
           <i>*must be within the first 5 tags of a post</i>
         </p>
       </header>
-      <form onSubmit={onSubmit} className={"flex flex-center"}>
+      <form  onSubmit={onSubmit} className={"flex flex-center search"}>
         <input
           type="text"
           id="query-setter"
@@ -88,11 +140,12 @@ function App() {
         />
       </form>
       <Results searchQuery={searchQuery} />
+      <FilterInput />
       <main>
         {items.length > 0 ? (
           items.map((item) => (
             <article
-              className={`rounded ${item["type"]}-post`}
+              className={`rounded ${item["type"]}-post link-removed-${removeLink}`}
               key={item["id"]}
               id={item["id"]}
             >
