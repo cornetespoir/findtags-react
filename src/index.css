@@ -35,64 +35,70 @@ body {
   border: 1px solid rgba(var(--black), 0.2);
 }
 
-.hidden, .hidden-word {
-  color:transparent;
-  border-color:red;
-  text-align:center;
+.hidden,
+.hidden-word {
+  color: transparent;
+  border-color: red;
+  text-align: center;
 }
 :is(.hidden, .hidden-word) .info {
   justify-content: center;
-  color:black;
+  color: black;
 }
 
 :is(.hidden, .hidden-word) .info a {
-  padding:var(--padding-sm);
-  border-radius:.4rem;
-  border:1px solid rgba(var(--black), .4)
+  padding: var(--padding-sm);
+  border-radius: 0.4rem;
+  border: 1px solid rgba(var(--black), 0.4);
 }
 .link-removed-true .info {
-  display:none;
+  display: none;
 }
 
-:is(.hidden, .hidden-word):before  {
-  content:'This post contains blocked tags! It has been removed from your search.';
-  color:black;
-  display:block;
-  padding:var(--padding-lg) var(--padding-lg) 0;
+:is(.hidden, .hidden-word):before {
+  content: "This post contains blocked tags! It has been removed from your search.";
+  color: black;
+  display: block;
+  padding: var(--padding-lg) var(--padding-lg) 0;
 }
 
-:is(.hidden, .hidden-word)  .tags {
-  padding:var(--padding-lg)
+:is(.hidden, .hidden-word) .tags {
+  padding: var(--padding-lg);
 }
 
 .hidden-word:before {
-  content:'This post contains a word from your blocked tags! It has been removed from your search.';
+  content: "This post contains a word from your blocked tags! It has been removed from your search.";
 }
 
-.hidden img, .hidden > :not(:where(.tags, .info)), .hidden-word img, .hidden-word > :not(:where(.tags, .info))  {
-  display:none
+.hidden img,
+.hidden > :not(:where(.tags, .info)),
+.hidden-word img,
+.hidden-word > :not(:where(.tags, .info)) {
+  display: none;
 }
 
 .hidden .tags:before {
-  content:'Blocked tags: ';
-  color:black;
+  content: "Blocked tags: ";
+  color: black;
 }
-.hidden .tags button:not(.blocked-tag), .hidden-word .tags button {
-  display:none;
+.hidden .tags button:not(.blocked-tag),
+.hidden-word .tags button {
+  display: none;
 }
 .hidden .blocked-tag {
-  color:red
+  color: red;
 }
-.hidden .reblog, .hidden-word .reblog {
-  display:none;
+.hidden .reblog,
+.hidden-word .reblog {
+  display: none;
 }
 
 .hidden-word .tags:before {
-  color:black;
-  content:'Contained these blocked words: '
+  color: black;
+  content: "Contained these blocked words: ";
 }
 .hidden-word .tags {
-  color:red!important;
+  color: red !important;
 }
 a {
   color: rgba(var(--black), 0.8);
@@ -112,7 +118,7 @@ header {
   position: relative;
   overflow: hidden;
   width: 100vw;
-  margin:auto;
+  margin: auto;
   height: 40vh;
   color: rgb(var(--white));
   background-size: cover;
@@ -157,11 +163,11 @@ article {
 }
 
 aside {
-  position:fixed;
-  left:5vh;
-  z-index:3;
-  top:5vh;
-  transition: left .3s cubic-bezier(0, .52, 0, 1);
+  position: fixed;
+  left: 5vh;
+  z-index: 3;
+  top: 5vh;
+  transition: left 0.3s cubic-bezier(0, 0.6, 0, 1);
 }
 
 .text-center {
@@ -217,15 +223,13 @@ img {
   margin-right: var(--margin-sm);
 }
 
-
 .caption {
   padding: var(--padding-lg);
   border-bottom: 1px solid rgba(var(--black), 0.12);
 }
 
-
 .info {
-  padding: var(--padding-md) var(--padding-lg) var(--padding-sm)
+  padding: var(--padding-md) var(--padding-lg) var(--padding-sm);
 }
 
 .tags {
@@ -241,29 +245,26 @@ img {
 .tags button {
   background: rgba(var(--black), 0);
   border: 0;
-  color: rgba(var(--black), .8);
+  color: rgba(var(--black), 0.8);
   padding: 0 var(--padding-sm);
   border-radius: var(--padding-sm);
   display: inline;
   white-space: normal;
   font-size: 16px;
-  margin: .4rem var(--padding-sm) .4rem 0;
+  margin: 0.4rem var(--padding-sm) 0.4rem 0;
   margin-left: calc(-1 * var(--padding-sm));
 }
 
-
 .tags button:before {
-  content: '#'
+  content: "#";
 }
-
-
 
 .tags button:hover {
   background: rgba(var(--black), 0.08);
 }
 
 .tags .fa {
-  font-size: 1rem
+  font-size: 1rem;
 }
 
 .info .fa {
@@ -283,31 +284,31 @@ img {
   border-radius: var(--padding-md);
   border-top-left-radius: 0;
   padding: var(--padding-md);
-  border:1px solid rgba(var(--black), 0.2);
+  border: 1px solid rgba(var(--black), 0.2);
 }
 
 .loading {
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  border:0;
-  background:transparent;
-  justify-content:center;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 0;
+  background: transparent;
+  justify-content: center;
 }
 
 .loading > * {
-  opacity:0;
-  opacity:0;
-  width:0;
-  height:0;
-  padding:0;
+  opacity: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
 }
 
 .loading:before {
-  content:'Loading Posts';
-  width:100%;
-  text-align:center;
-  padding:var(--padding-md)
+  content: "Loading Posts";
+  width: 100%;
+  text-align: center;
+  padding: var(--padding-md);
 }
 
 .loading:after {
@@ -315,10 +316,11 @@ img {
   display: block;
   width: 2rem;
   height: 2rem;
-  margin-bottom:var(--padding-lg);
+  margin-bottom: var(--padding-lg);
   border-radius: 50%;
-  border: .2rem solid  rgba(var(--black), .4);
-  border-color: rgba(var(--black), .4) transparent rgba(var(--black), .4) transparent;
+  border: 0.2rem solid rgba(var(--black), 0.4);
+  border-color: rgba(var(--black), 0.4) transparent rgba(var(--black), 0.4)
+    transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 @keyframes lds-dual-ring {
@@ -374,16 +376,16 @@ button {
   border-bottom: 1px solid skyblue;
 }
 
-.tags button:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3), :nth-of-type(4), :nth-of-type(5)) {
+.tags
+  button:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3), :nth-of-type(4), :nth-of-type(5)) {
   opacity: 0.4;
   cursor: auto;
 }
 
 .content-source {
-  opacity: .8;
+  opacity: 0.8;
   padding-left: var(--padding-lg);
 }
-
 
 p:empty,
 h2:empty {
@@ -404,10 +406,11 @@ blockquote {
   background-color: #eee;
   border-radius: 3px;
   border: 1px solid #b4b4b4;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2),
+    0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
   color: #333;
   display: inline-block;
-  font-size: .88em;
+  font-size: 0.88em;
   font-weight: 700;
   line-height: 1;
   padding: 2px 4px;
@@ -428,11 +431,15 @@ blockquote {
 }
 
 .link-container:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(var(--black), .4), rgba(var(--black), .6))
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--black), 0.4),
+    rgba(var(--black), 0.6)
+  );
 }
 
 .link-container img {
@@ -449,124 +456,125 @@ blockquote {
 }
 
 .exit {
-  position:absolute;
-  right:-4rem;
-  font-size:1rem;
-  padding:var(--padding-md)
+  position: absolute;
+  right: -3rem;
+  font-size: 1.2rem;
+  padding: var(--padding-sm);
 }
 
 aside.close {
-  left:-335px;
+  left: -330px;
+}
 
+aside.open .exit i:before {
+  content: "\f00d";
 }
 .filter-items {
-  width:320px;
-  z-index:9;
-  font-size:.98rem;
-  margin-bottom:var(--margin-sm);
-  background:rgb(var(--white));
-  padding:var(--padding-lg);
+  width: 320px;
+  z-index: 9;
+  font-size: 0.98rem;
+  margin-bottom: var(--margin-sm);
+  background: rgb(var(--white));
+  padding: var(--padding-lg);
   border-radius: 0.6rem;
   border: 1px solid rgba(var(--black), 0.2);
 }
 
 .filter-items form {
-  display:flex;
-  width:100%;
-  justify-content:space-between;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .filter-items input {
-  padding:calc(var(--padding-sm) * 1.5) var(--padding-sm);
-  width:calc(100% - 90px);
+  padding: calc(var(--padding-sm) * 1.5) var(--padding-sm);
+  width: calc(100% - 90px);
   border: 1px solid rgba(var(--black), 0.2);
   border-radius: 0.6rem;
 }
 
 .filter-items button {
-  width:80px;
+  width: 80px;
   border: 1px solid rgba(var(--black), 0.2);
   border-radius: 0.6rem;
 }
 
 .filter-card {
-  display:flex;
-  width:auto;
-  margin-top:var(--margin-sm);
+  display: flex;
+  width: auto;
+  margin-top: var(--margin-sm);
   border: 1px solid rgba(var(--black), 0.2);
-  align-items:center;
+  align-items: center;
   border-radius: 0.6rem;
   padding: 0 var(--padding-sm);
-  font-size:.94rem;
-  margin-right:var(--padding-sm);
-  justify-content:space-between;
+  font-size: 0.94rem;
+  margin-right: var(--padding-sm);
+  justify-content: space-between;
 }
 
 .filter-card button {
-  background:transparent;
-  border:0;
-  width:auto;
-  padding:0;
-  font-size:.94rem;
-  margin: 0 0 0  calc(var(--margin-sm) / 2)
+  background: transparent;
+  border: 0;
+  width: auto;
+  padding: 0;
+  font-size: 0.94rem;
+  margin: 0 0 0 calc(var(--margin-sm) / 2);
 }
 
 .filter-card button:not(.favorites) {
-  color:rgb(var(--error));
-  font-weight:bold;
-  border-radius:100%;
-  margin: calc(var(--padding-sm) / 2) 0 calc(var(--padding-sm) / 2)  calc(var(--margin-sm) / 2);
+  color: rgb(var(--error));
+  font-weight: bold;
+  border-radius: 100%;
+  margin: calc(var(--padding-sm) / 2) 0 calc(var(--padding-sm) / 2)
+    calc(var(--margin-sm) / 2);
   padding: calc(var(--padding-sm) / 2) var(--padding-sm);
 }
 
 .filter-card button:not(.favorites):hover {
-  background:rgba(167, 39, 39, .08);
+  background: rgba(167, 39, 39, 0.08);
 }
 
 .filter-card p {
-  padding:var(--padding-sm);
-  margin:0;
+  padding: var(--padding-sm);
+  margin: 0;
 }
 
 .toggleNote {
-  background:transparent;
-  width:250px!important;
-  margin-top:calc(var(--margin-sm) * 2 );
-  padding:var(--padding-sm)!important;
-  font-size:16px;
-  border:0px!important;
-  text-align:left;
+  background: transparent;
+  width: 250px !important;
+  margin-top: calc(var(--margin-sm) * 2);
+  padding: var(--padding-sm) !important;
+  font-size: 16px;
+  border: 0px !important;
+  text-align: left;
 }
 
 .remove-true {
-  background:rgba(92, 186, 89, 0.199);
-  color:rgb(20, 94, 20);
+  background: rgba(92, 186, 89, 0.199);
+  color: rgb(20, 94, 20);
 }
 
 .toggleNote i {
-  margin-right:calc(var(--margin-sm) / 2)
+  margin-right: calc(var(--margin-sm) / 2);
 }
 
 .remove-true i:before {
-  content:'\f14a'
+  content: "\f14a";
 }
 
 .filter-items h2 {
-  font-size:1.2rem;
-  margin-bottom:var(--margin-sm)
+  font-size: 1.2rem;
+  margin-bottom: var(--margin-sm);
 }
 
-
 .filter-container {
-  max-height:100px;
-  overflow:auto;
-  margin-top:var(--margin-sm)
+  max-height: 100px;
+  overflow: auto;
+  margin-top: var(--margin-sm);
 }
 
-
-
 .filter-container {
-  padding-right:var(--margin-sm);
+  padding-right: var(--margin-sm);
   scrollbar-width: thin;
   scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
@@ -576,18 +584,18 @@ aside.close {
 }
 
 input.error-message {
-  border-color:rgb(var(--error));
-  background:rgba(var(--error), .08);
-
+  border-color: rgb(var(--error));
+  background: rgba(var(--error), 0.08);
 }
 
-input:focus,  textarea:focus{
-  border-color:inherit;
+input:focus,
+textarea:focus {
+  border-color: inherit;
 }
 
 p.error-message {
-  font-size:.94rem;
-  color:rgb(var(--error));
+  font-size: 0.94rem;
+  color: rgb(var(--error));
 }
 
 .sr-text {
@@ -603,39 +611,44 @@ p.error-message {
   word-wrap: normal !important;
 }
 
-:is(.hidden-word, .hidden) .info a[href^='https://']:not([href*='findtags-react']):after {
+:is(.hidden-word, .hidden) .info a[href^='https://']:not([href*='findtags-react']):after
+{
   content: " \f35d";
-  font-family: 'Font Awesome 5 Free';
+  font-family: "Font Awesome 5 Free";
   font-weight: 900;
-  font-size: .8rem;
-  margin-left:.4rem;
+  font-size: 0.8rem;
+  margin-left: 0.4rem;
 }
 
-@media only screen and (max-width:1220px) {
+@media only screen and (max-width: 1220px) {
   aside {
-    position:relative!important;
-    top:auto;
-    left:auto;
-    margin:var(--padding-md) auto;
-    width:540px;
+    position: relative !important;
+    top: auto;
+    left: auto;
+    margin: var(--padding-md) auto;
+    width: 540px;
   }
 
   .filter-items {
-    width:540px;
+    width: 540px;
   }
   aside.close {
-    left:0!important;
+    left: 0 !important;
   }
   .exit {
-    display:none;
+    display: none;
   }
 }
 
-@media only screen and (max-width:600px) {
-
- aside, .filter-container, main, form, article, .search-results {
-  max-width:90vw;
-  margin-left:auto;
-  margin-right:auto;
- }
+@media only screen and (max-width: 600px) {
+  aside,
+  .filter-container,
+  main,
+  form,
+  article,
+  .search-results {
+    max-width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

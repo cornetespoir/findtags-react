@@ -30,7 +30,6 @@ function App() {
         );
         const data = await res.json();
         setItems(data.response);
-        console.log(items)
         setBefore(data.response.at(-1).timestamp);
         window.history.replaceState(
           {},
