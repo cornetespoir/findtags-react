@@ -17,7 +17,7 @@ const Postinfo = ({ noteCount, postURL, reblogURL, dateTime }: PostProps) => {
 
   return (
     <div className="info flex justify-between">
-      <a href={postURL} className="flex align-center note-count">
+      <a href={postURL} rel="noreferrer" target="_blank" className="flex align-center note-count">
         <span>
           Posted on <span title={dateTime}>{newDate}</span> with {noteCount}
           {noteCount === 1 ? ' note' : ' notes'}

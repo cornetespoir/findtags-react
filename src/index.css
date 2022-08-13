@@ -38,17 +38,31 @@ body {
 .hidden, .hidden-word {
   color:transparent;
   border-color:red;
+  text-align:center;
+}
+:is(.hidden, .hidden-word) .info {
+  justify-content: center;
+  color:black;
 }
 
+:is(.hidden, .hidden-word) .info a {
+  padding:var(--padding-sm);
+  border-radius:.4rem;
+  border:1px solid rgba(var(--black), .4)
+}
 .link-removed-true .info {
   display:none;
 }
 
-.hidden:before, .hidden-word:before {
+:is(.hidden, .hidden-word):before  {
   content:'This post contains blocked tags! It has been removed from your search.';
   color:black;
   display:block;
-  padding:var(--padding-md) var(--padding-lg) 0;
+  padding:var(--padding-lg) var(--padding-lg) 0;
+}
+
+:is(.hidden, .hidden-word)  .tags {
+  padding:var(--padding-lg)
 }
 
 .hidden-word:before {
@@ -57,10 +71,6 @@ body {
 
 .hidden img, .hidden > :not(:where(.tags, .info)), .hidden-word img, .hidden-word > :not(:where(.tags, .info))  {
   display:none
-}
-
-.hidden .info, .hidden-word .info {
-  color:black!important
 }
 
 .hidden .tags:before {
@@ -529,6 +539,14 @@ p.error-message {
   position: absolute;
   width: 1px;
   word-wrap: normal !important;
+}
+
+:is(.hidden-word, .hidden) .info a[href^='https://']:not([href*='findtags-react']):after {
+  content: " \f35d";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: .8rem;
+  margin-left:.4rem;
 }
 
 @media only screen and (max-width:1220px) {
