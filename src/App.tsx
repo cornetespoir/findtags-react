@@ -45,6 +45,7 @@ function App() {
   const removeLink = JSON.parse(localStorage.getItem('removeLinks') as string);
 
   function updateArticles() {
+    if(filters)
       filters.forEach((filter) => {
         const tags = document.querySelectorAll('article .tags button')
         const captions = document.querySelectorAll('article .caption')
@@ -56,7 +57,6 @@ function App() {
               taglist.innerHTML = filter.filter
             }
             const noteCount = caption.closest('article')?.querySelector('.note-count')
-            
             if (noteCount) {
               if (removeLink === false) {
                 noteCount.innerHTML = 'View original post'

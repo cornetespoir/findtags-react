@@ -2,6 +2,7 @@
   --white: 255, 255, 255;
   --black: 0, 0, 0;
   --background: #f5f5f5;
+  --error: 167, 39, 39;
   --margin-sm: 0.6rem;
   --padding-sm: 0.4rem;
   --padding-md: 1rem;
@@ -99,6 +100,7 @@ header {
   position: relative;
   overflow: hidden;
   width: 100vw;
+  margin:auto;
   height: 40vh;
   color: rgb(var(--white));
   background-size: cover;
@@ -388,8 +390,8 @@ blockquote {
 
 .filter-items {
   position:fixed;
-  left:10vh;
-  top:10vh;
+  left:5vh;
+  top:5vh;
   width:300px;
   z-index:9;
   background:rgb(var(--white));
@@ -409,29 +411,40 @@ blockquote {
   width:calc(100% - 90px);
   border: 1px solid rgba(var(--black), 0.2);
   border-radius: 0.6rem;
+  font-size:1rem;
 }
 
 .filter-items button {
-  width:75px;
+  width:80px;
+  font-size:.96rem;
   border: 1px solid rgba(var(--black), 0.2);
   border-radius: 0.6rem;
 }
 
 .filter-card {
   display:flex;
-  width:100%;
+  width:auto;
   margin-top:var(--margin-sm);
   border: 1px solid rgba(var(--black), 0.2);
   align-items:center;
   border-radius: 0.6rem;
+  font-size:1rem;
+  margin-right:var(--padding-sm);
   justify-content:space-between;
 }
 
 .filter-card button {
   background:transparent;
   border:0;
-  color:rgb(167, 39, 39);
+  width:auto;
+  padding:var(--padding-sm);
+  color:rgb(var(--error));
   font-weight:bold;
+  margin: 0 calc(var(--margin-sm) / 2)
+}
+
+.filter-card button:hover {
+  background:rgba(167, 39, 39, .08);
 }
 
 .filter-card p {
@@ -488,4 +501,50 @@ html {
 .filter-items small a {
   color: rgb(38, 70, 130);
   border-bottom:1px solid  rgb(38, 70, 130)
+}
+
+input.error-message {
+  border-color:rgb(var(--error));
+  background:rgba(var(--error), .08);
+
+}
+
+input:focus,  textarea:focus{
+  border-color:inherit;
+}
+
+p.error-message {
+  font-size:.94rem;
+  color:rgb(var(--error));
+}
+
+.sr-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important;
+}
+
+@media only screen and (max-width:1220px) {
+  .filter-items {
+    position:relative!important;
+    top:auto;
+    left:auto;
+    margin:var(--padding-md) auto;
+    width:540px;
+  }
+}
+
+@media only screen and (max-width:600px) {
+ .filter-items, main, form, article, .search-results {
+  max-width:90vw;
+  margin-left:auto;
+  margin-right:auto;
+ }
 }

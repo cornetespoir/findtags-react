@@ -6,6 +6,7 @@ const FilterInput = () => {
     const [filters, setfilters] = useState([{id: 'a', filter: 'spoilers'}]);
 	const [filterItem, setfilterItem] = useState('');
 	const [error, setError] = useState(false);
+	const [duplicates, setDuplicates] = useState(false);
     const [removeLink, setRemoveLink] = useState(false)
 
 	const handleSubmit = (e) => {
@@ -18,6 +19,12 @@ const FilterInput = () => {
 				id: uniqueId,
 				filter: filterItem
 			};
+			const duplicate = filters.find(filter => filter.filter === filterItem)
+			if (duplicate) {
+				setDuplicates(true)
+				return
+			}
+			setDuplicates(false)
 			setfilters([newfilterItem, ...filters]);
 			setfilterItem('');
 		} else {
@@ -30,7 +37,6 @@ const FilterInput = () => {
 		let newfilters = filters.filter((filter) => filter.id !== id);
 		setfilters([...newfilters]);
 	};
-
 
     useEffect(() => {
 		const filters = JSON.parse(localStorage.getItem('filters') as string);
@@ -79,7 +85,7 @@ const FilterInput = () => {
 						<input
 							type="text"
 							value={filterItem}
-							className={error ? 'error' : ''}
+							className={duplicates ? 'error-message' : ''}
 							onChange={(e) => setfilterItem(e.target.value)}
 							placeholder="Enter a filter"
 						/>
@@ -87,7 +93,12 @@ const FilterInput = () => {
 							Add filter
 						</button>
 					</form>
-			<div className="filter-container">
+					{duplicates 
+						? (
+							<p className='error-message'>This word is already being filtered!</p>
+						)
+						: ''}
+			<div className="filter-container flex">
 				{filters.map((filterItem) => {
 					const { id, filter } = filterItem;
 					return (
@@ -95,8 +106,7 @@ const FilterInput = () => {
 							
 							<p>{filter}</p>
 							<button
-								onClick={() => deletefilter(id)}
-							>delete</button>
+								onClick={() => deletefilter(id)}><i className="fa fa-times"><span className="sr-text">delete</span></i></button>
 						</div>
 					);
 				})}
