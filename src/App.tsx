@@ -8,6 +8,8 @@ import Links from "./components/Links";
 import Photos from "./components/Photos";
 import Videos from "./components/Videos";
 import FilterInput from "./components/FilterInput";
+import Favorites from "./components/Favorites";
+import Menu from "./components/Menu";
 
 const THE_KEY = process.env.REACT_APP_TUMBLR_API_KEY;
 
@@ -28,6 +30,7 @@ function App() {
         );
         const data = await res.json();
         setItems(data.response);
+        console.log(items)
         setBefore(data.response.at(-1).timestamp);
         window.history.replaceState(
           {},
@@ -42,11 +45,11 @@ function App() {
     }
   }, [searchQuery]);
 
-	const filters = JSON.parse(localStorage.getItem('filters') as string);
+  const filters = JSON.parse(localStorage.getItem('filters') as string);
   const removeLink = JSON.parse(localStorage.getItem('removeLinks') as string);
 
   function updateArticles() {
-    if(filters)
+    if (filters)
       filters.forEach((filter) => {
         const tags = document.querySelectorAll('article .tags button')
         const captions = document.querySelectorAll('article .caption')
@@ -67,45 +70,56 @@ function App() {
               }
             }
           }
-          })
-        tags.forEach((tag) => {
-            if (tag.innerHTML.toLowerCase() === (filter.filter.toLowerCase())) {
-                tag.closest('article')?.classList.add('hidden')
-                tag.classList.add('blocked-tag')
-                const noteCount = tag.closest('article')?.querySelector('.note-count')
-                if (noteCount) {
-                  if (removeLink === false) {
-                    noteCount.innerHTML = 'View original post'
-                  }
-                  else {
-                    noteCount.remove()
-                  }
-                }
-              
-            }
         })
-  
-    }
-  )}
+        tags.forEach((tag) => {
+          if (tag.innerHTML.toLowerCase() === (filter.filter.toLowerCase())) {
+            tag.closest('article')?.classList.add('hidden')
+            tag.classList.add('blocked-tag')
+            const noteCount = tag.closest('article')?.querySelector('.note-count')
+            if (noteCount) {
+              if (removeLink === false) {
+                noteCount.innerHTML = 'View original post'
+              }
+              else {
+                noteCount.remove()
+              }
+            }
 
-useEffect(() => {
- updateArticles()
-})
+          }
+        })
+
+      }
+      )
+  }
+
+  useEffect(() => {
+    updateArticles()
+  })
+
 
   const onSubmit = (e) => {
     e.preventDefault();
   };
   const setChangeQuery = (e) => {
     if (e.keyCode === 13) {
-      setLoading('')
       setLoading('loading')
-      setSearchQuery(e.target.value);    
+      setItems([])
+      setSearchQuery(e.target.value);
+      setTimeout(function () {
+        setLoading('')
+      }, 1000);
     }
   };
 
   const handleTag = (tag) => {
+    setLoading('loading')
+    setItems([])
     setSearchQuery(tag);
+    setTimeout(function () {
+      setLoading('')
+    }, 1000);
     if (tag != null) {
+
       (document.getElementById("query-setter") as HTMLInputElement).value = tag;
       window.scroll({ top: 0, left: 0, behavior: "auto" });
       updateArticles()
@@ -121,7 +135,12 @@ useEffect(() => {
       setBefore(data.response.at(-1).timestamp);
       setItems(data.response);
     };
+    setLoading('loading')
+    setItems([])
     beforePosts();
+    setTimeout(function () {
+      setLoading('')
+    }, 1000);
     window.scroll({ top: 0, left: 0, behavior: "auto" });
   };
 
@@ -134,7 +153,7 @@ useEffect(() => {
           <i>*must be within the first 5 tags of a post</i>
         </p>
       </header>
-      <form  onSubmit={onSubmit} className={"flex flex-center search"}>
+      <form onSubmit={onSubmit} className={"flex flex-center search"}>
         <input
           type="text"
           id="query-setter"
@@ -143,7 +162,10 @@ useEffect(() => {
         />
       </form>
       <Results searchQuery={searchQuery} />
-      <FilterInput />
+      <Menu>
+        <Favorites stateChanger={setSearchQuery} setLoading={setLoading}/>
+        <FilterInput />
+      </Menu>
       <main>
         {items.length > 0 ? (
           items.map((item) => (
@@ -163,7 +185,7 @@ useEffect(() => {
               ) : null}
               <Links
                 excerpt={item["excerpt"]}
-                type="{item['type']}"
+                type={item["type"]}
                 linkImage={item["link_image"]}
                 linkURL={item["url"]}
                 summary={item["summary"]}
@@ -186,10 +208,10 @@ useEffect(() => {
                   item["type"] === "text"
                     ? item["body"]
                     : item["type"] === "quote"
-                    ? item["text"]
-                    : item["type"] === "link"
-                    ? item["description"]
-                    : item["caption"]
+                      ? item["text"]
+                      : item["type"] === "link"
+                        ? item["description"]
+                        : item["caption"]
                 }
                 sourceurl={item["source_url"] != null && item["source_url"]}
                 sourcetitle={

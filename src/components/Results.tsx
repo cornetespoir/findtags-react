@@ -14,7 +14,7 @@ const Results = ({ searchQuery }: ResultsProps) => {
         <div className="text-center">
           <h3>Welcome to findtags</h3>
           <p>
-         Type into the search bar above and press the <span className="key">enter</span> key to search. Your results will display below. 
+            Type into the search bar above and press the <span className="key">enter</span> key to search. Your results will display below.
           </p>
         </div>
       )}

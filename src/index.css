@@ -131,7 +131,7 @@ header:before {
 header :where(p, h1) {
   width: 100%;
   text-align: center;
-  z-index: 9;
+  z-index: 2;
   margin: var(--padding-md);
 }
 
@@ -154,6 +154,14 @@ article {
   object-fit: cover;
   background: rgb(var(--white));
   border: 1px solid rgba(var(--black), 0.12);
+}
+
+aside {
+  position:fixed;
+  left:5vh;
+  z-index:3;
+  top:5vh;
+  transition: left .3s cubic-bezier(0, .52, 0, 1);
 }
 
 .text-center {
@@ -279,8 +287,47 @@ img {
 }
 
 .loading {
-  animation: loading 2s 1 forwards;
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  border:0;
+  background:transparent;
+  justify-content:center;
+}
+
+.loading > * {
   opacity:0;
+  opacity:0;
+  width:0;
+  height:0;
+  padding:0;
+}
+
+.loading:before {
+  content:'Loading Posts';
+  width:100%;
+  text-align:center;
+  padding:var(--padding-md)
+}
+
+.loading:after {
+  content: " ";
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom:var(--padding-lg);
+  border-radius: 50%;
+  border: .2rem solid  rgba(var(--black), .4);
+  border-color: rgba(var(--black), .4) transparent rgba(var(--black), .4) transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes loading {
@@ -289,7 +336,7 @@ img {
   }
 
   100% {
-    opacity: 1;
+    opacity: 0;
   }
 }
 
@@ -401,12 +448,22 @@ blockquote {
   margin: var(--padding-md);
 }
 
+.exit {
+  position:absolute;
+  right:-4rem;
+  font-size:1rem;
+  padding:var(--padding-md)
+}
+
+aside.close {
+  left:-335px;
+
+}
 .filter-items {
-  position:fixed;
-  left:5vh;
-  top:5vh;
-  width:300px;
+  width:320px;
   z-index:9;
+  font-size:.98rem;
+  margin-bottom:var(--margin-sm);
   background:rgb(var(--white));
   padding:var(--padding-lg);
   border-radius: 0.6rem;
@@ -420,16 +477,14 @@ blockquote {
 }
 
 .filter-items input {
-  padding:calc(var(--padding-sm) * 2) var(--padding-sm);
+  padding:calc(var(--padding-sm) * 1.5) var(--padding-sm);
   width:calc(100% - 90px);
   border: 1px solid rgba(var(--black), 0.2);
   border-radius: 0.6rem;
-  font-size:1rem;
 }
 
 .filter-items button {
   width:80px;
-  font-size:.96rem;
   border: 1px solid rgba(var(--black), 0.2);
   border-radius: 0.6rem;
 }
@@ -441,7 +496,8 @@ blockquote {
   border: 1px solid rgba(var(--black), 0.2);
   align-items:center;
   border-radius: 0.6rem;
-  font-size:1rem;
+  padding: 0 var(--padding-sm);
+  font-size:.94rem;
   margin-right:var(--padding-sm);
   justify-content:space-between;
 }
@@ -450,13 +506,20 @@ blockquote {
   background:transparent;
   border:0;
   width:auto;
-  padding:var(--padding-sm);
-  color:rgb(var(--error));
-  font-weight:bold;
-  margin: 0 calc(var(--margin-sm) / 2)
+  padding:0;
+  font-size:.94rem;
+  margin: 0 0 0  calc(var(--margin-sm) / 2)
 }
 
-.filter-card button:hover {
+.filter-card button:not(.favorites) {
+  color:rgb(var(--error));
+  font-weight:bold;
+  border-radius:100%;
+  margin: calc(var(--padding-sm) / 2) 0 calc(var(--padding-sm) / 2)  calc(var(--margin-sm) / 2);
+  padding: calc(var(--padding-sm) / 2) var(--padding-sm);
+}
+
+.filter-card button:not(.favorites):hover {
   background:rgba(167, 39, 39, .08);
 }
 
@@ -489,13 +552,13 @@ blockquote {
 }
 
 .filter-items h2 {
-  font-size:1.34rem;
+  font-size:1.2rem;
   margin-bottom:var(--margin-sm)
 }
 
 
 .filter-container {
-  max-height:200px;
+  max-height:100px;
   overflow:auto;
   margin-top:var(--margin-sm)
 }
@@ -510,7 +573,6 @@ blockquote {
 
 .filter-items small a {
   color: rgb(38, 70, 130);
-  border-bottom:1px solid  rgb(38, 70, 130)
 }
 
 input.error-message {
@@ -550,17 +612,28 @@ p.error-message {
 }
 
 @media only screen and (max-width:1220px) {
-  .filter-items {
+  aside {
     position:relative!important;
     top:auto;
     left:auto;
     margin:var(--padding-md) auto;
     width:540px;
   }
+
+  .filter-items {
+    width:540px;
+  }
+  aside.close {
+    left:0!important;
+  }
+  .exit {
+    display:none;
+  }
 }
 
 @media only screen and (max-width:600px) {
- .filter-items, main, form, article, .search-results {
+
+ aside, .filter-container, main, form, article, .search-results {
   max-width:90vw;
   margin-left:auto;
   margin-right:auto;

@@ -11,9 +11,9 @@ const Postinfo = ({ noteCount, postURL, reblogURL, dateTime }: PostProps) => {
   const reblogString = postURLString.substring(0, postURLString.lastIndexOf("/"));
   const realReblogUrl = `${reblogString}/${reblogURL}`;
 
-  const indexed = dateTime.substring(0, dateTime.indexOf(" "));
-  const options :Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: "numeric" };
-  const newDate = new Date(indexed).toLocaleDateString("en-US", options);
+  const indexed = dateTime.substring(0, dateTime.indexOf(" ")).split('-');
+  const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "short", day: `numeric` };
+  const newDate = new Date(indexed as any).toLocaleDateString(undefined, options);
 
   return (
     <div className="info flex justify-between">

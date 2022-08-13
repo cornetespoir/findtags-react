@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 
 const FilterInput = () => {
 
-    const [filters, setfilters] = useState([{id: 'a', filter: 'spoilers'}]);
+	const [filters, setfilters] = useState([{ id: 'a', filter: 'spoilers' }]);
 	const [filterItem, setfilterItem] = useState('');
 	const [error, setError] = useState(false);
 	const [duplicates, setDuplicates] = useState(false);
-    const [removeLink, setRemoveLink] = useState(false)
+	const [removeLink, setRemoveLink] = useState(false)
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -38,28 +38,28 @@ const FilterInput = () => {
 		setfilters([...newfilters]);
 	};
 
-    useEffect(() => {
+	useEffect(() => {
 		const filters = JSON.parse(localStorage.getItem('filters') as string);
 		if (filters) {
 			setfilters(filters);
 		}
-        const removeLink = JSON.parse(localStorage.getItem('removeLinks') as string);
-        if (removeLink) {
-            setRemoveLink(removeLink)
-        }
+		const removeLink = JSON.parse(localStorage.getItem('removeLinks') as string);
+		if (removeLink) {
+			setRemoveLink(removeLink)
+		}
 	}, []);
 
-    const handleToggle = (e) => {
-       if (removeLink === true) {
-        setRemoveLink(false)
-       }
+	const handleToggle = (e) => {
+		if (removeLink === true) {
+			setRemoveLink(false)
+		}
 
-       else {
-        setRemoveLink(true)
-       }
-    }
+		else {
+			setRemoveLink(true)
+		}
+	}
 
-    useEffect(() => {
+	useEffect(() => {
 		localStorage.setItem('removeLinks', JSON.stringify(removeLink));
 	}, [removeLink]);
 
@@ -76,42 +76,41 @@ const FilterInput = () => {
 		localStorage.setItem('filters', JSON.stringify(filters));
 	}, [filters]);
 
-  return (
-				<div className="filter-items">
-                   <h2>Filter content</h2>
-                   <p>Add words that you want hidden from your searches. <br/>
-                   <small><a target="_blank" rel="noreferrer" href="https://github.com/cornetespoir/findtags-react/wiki/Filtering-Content">Learn more about this feature</a></small></p>
-					<form onSubmit={handleSubmit}>
-						<input
-							type="text"
-							value={filterItem}
-							className={duplicates ? 'error-message' : ''}
-							onChange={(e) => setfilterItem(e.target.value)}
-							placeholder="Enter a filter"
-						/>
-						<button type="submit" className="btn">
-							Add filter
-						</button>
-					</form>
-					{duplicates 
-						? (
-							<p className='error-message'>This word is already being filtered!</p>
-						)
-						: ''}
+	return (
+		<div className="filter-items">
+			<h2>Filter content</h2>
+			<p>Add words that you want hidden from your searches.
+				<small><a target="_blank" rel="noreferrer" title="Read the filtering content guide" href="https://github.com/cornetespoir/findtags-react/wiki/Filtering-Content"> <i className="fa-regular fa-circle-question"></i><span className="sr-text">Learn more about this feature</span></a></small></p>
+			<form onSubmit={handleSubmit}>
+				<input
+					type="text"
+					value={filterItem}
+					className={duplicates ? 'error-message' : ''}
+					onChange={(e) => setfilterItem(e.target.value)}
+					placeholder="Enter a filter"
+				/>
+				<button type="submit" className="btn">
+					Add filter
+				</button>
+			</form>
+			{duplicates
+				? (
+					<p className='error-message'>This word is already being filtered!</p>
+				)
+				: ''}
 			<div className="filter-container flex">
 				{filters.map((filterItem) => {
 					const { id, filter } = filterItem;
 					return (
 						<div key={id} className="filter-card">
-							
-							<p>{filter}</p>
+							{filter}
 							<button
 								onClick={() => deletefilter(id)}><i className="fa fa-times"><span className="sr-text">delete</span></i></button>
 						</div>
 					);
 				})}
 			</div>
-            <button className={`toggleNote remove-${removeLink}`} onClick={(e) => handleToggle(e)}> <i className="far fa-square"></i> Hide filtered post links</button>
+			<button className={`toggleNote remove-${removeLink}`} onClick={(e) => handleToggle(e)}> <i className="far fa-square"></i> Hide filtered post links</button>
 		</div>
 	);
 };
