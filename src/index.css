@@ -7,6 +7,8 @@
   --padding-sm: 0.4rem;
   --padding-md: 1rem;
   --padding-lg: 1.4rem;
+  --scrollbarBG: #eeeaea;
+  --thumbBG: #787d82;
 }
 
 * {
@@ -181,7 +183,7 @@ img {
   border-radius: var(--padding-sm);
   max-width: 540px;
   margin: auto;
-  border: 1px solid rgba(var(--black), 0.12);
+  border: 1px solid rgba(var(--black), 0.2);
 }
 
 .search-results span {
@@ -267,7 +269,8 @@ img {
 }
 
 .loading {
-  animation: loading 1s 1;
+  animation: loading 2s 1 forwards;
+  opacity:0;
 }
 
 @keyframes loading {
@@ -487,10 +490,7 @@ blockquote {
   margin-top:var(--margin-sm)
 }
 
-html {
-  --scrollbarBG: #eeeaea;
-  --thumbBG: #787d82;
-}
+
 
 .filter-container {
   padding-right:var(--margin-sm);

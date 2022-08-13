@@ -15,6 +15,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [items, setItems] = useState([]);
   const [before, setBefore] = useState([]);
+  const [loading, setLoading] = useState('');
 
   const params = new URLSearchParams(window.location.search);
   params.set("tag", searchQuery);
@@ -86,17 +87,19 @@ function App() {
   
     }
   )}
+
 useEffect(() => {
  updateArticles()
 })
- 
 
   const onSubmit = (e) => {
     e.preventDefault();
   };
   const setChangeQuery = (e) => {
     if (e.keyCode === 13) {
-      setSearchQuery(e.target.value);
+      setLoading('')
+      setLoading('loading')
+      setSearchQuery(e.target.value);    
     }
   };
 
@@ -209,9 +212,9 @@ useEffect(() => {
         ) : searchQuery === "" ? (
           ""
         ) : (
-          <article>
+          <article className={loading}>
             <div className="caption rounded text-center">
-              <h2>No results for {searchQuery}</h2>
+              <h2 className={loading}>No results for {searchQuery}</h2>
             </div>
           </article>
         )}
