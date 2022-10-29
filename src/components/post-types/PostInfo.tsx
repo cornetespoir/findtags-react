@@ -6,7 +6,7 @@ interface PostProps {
   reblogURL: number;
   dateTime: string;
 }
-const Postinfo = ({ noteCount, postURL, reblogURL, dateTime }: PostProps) => {
+const PostInfo = ({ noteCount, postURL, reblogURL, dateTime }: PostProps) => {
   const postURLString = postURL.substring(postURL.indexOf("post/") + 5);
   const reblogString = postURLString.substring(0, postURLString.lastIndexOf("/"));
   const realReblogUrl = `${reblogString}/${reblogURL}`;
@@ -30,4 +30,4 @@ const Postinfo = ({ noteCount, postURL, reblogURL, dateTime }: PostProps) => {
   );
 };
 
-export default Postinfo;
+export { PostInfo };

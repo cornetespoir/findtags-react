@@ -43,4 +43,4 @@ const Answers = ({ url, type, answer, asker, question, username }) => {
   );
 };
 
-export default Answers;
+export { Answers };

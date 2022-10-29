@@ -9,12 +9,12 @@ const Photos = ({ type, photos }) => {
         className="photoset-grid"
         photoset-layout={type.photoset_layout}
       >
-        {photos.map((photos, i) => {
+        {photos.map((photos) => {
           return (
-            <div key={photos.alt_sizes[1].url}>
+            <div key={photos?.alt_sizes[0]?.url ?? ''}>
               <img
-                src={photos.alt_sizes[1].url}
-                alt={photos.caption}
+                src={photos?.alt_sizes[0]?.url ?? ''}
+                alt={photos?.caption}
               />
             </div>
           );
@@ -24,4 +24,4 @@ const Photos = ({ type, photos }) => {
   );
 };
 
-export default Photos;
+export { Photos };

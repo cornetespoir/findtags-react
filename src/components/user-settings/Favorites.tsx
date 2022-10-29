@@ -92,4 +92,4 @@ const Favorites = ({ stateChanger, setLoading }) => {
 	);
 };
 
-export default Favorites;
+export { Favorites };

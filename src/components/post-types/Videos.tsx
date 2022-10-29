@@ -9,7 +9,7 @@ const Videos = ({ player, type }: VideoProps) => {
   return (
     <div className={`videos player-${type}`} dangerouslySetInnerHTML={{ __html: player }}></div>
   );
-  
+
 };
 
-export default Videos;
+export { Videos };

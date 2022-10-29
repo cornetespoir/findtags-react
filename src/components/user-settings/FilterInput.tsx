@@ -115,4 +115,4 @@ const FilterInput = () => {
 	);
 };
 
-export default FilterInput;
+export { FilterInput };

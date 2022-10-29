@@ -39,4 +39,4 @@ const Captions = ({
   );
 };
 
-export default Captions;
+export { Captions };
