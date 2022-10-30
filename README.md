@@ -19,7 +19,7 @@ Returning features:
 - [x] Not found page
 
 Features from the original that have not been included yet:
-- [] Grid/single column toggle
+- Grid/single column toggle
 
 As of 8/7/22 the following post types are supported:
 - Text/NPF posts (all mobile posts are supported)
