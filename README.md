@@ -1,11 +1,7 @@
 > [!warning]
-> this is an outdated version of findtags. view the new version here:  https://github.com/cornetespoir/findtags
-# Welcome to the new version of findtags!
-> view the live version: [https://cornetespoir.github.io/findtags-react/](https://cornetespoir.github.io/findtags-react)
+> ### this is an outdated version of findtags. view the new version here:  https://github.com/cornetespoir/findtags
 
-When findtags first launched in 2020, it was written with jQuery. That  was a pretty outdated way of handling this, so I wanted to start over completely with React. 
 
-This version has not been officially released on the findtags blog, but is open for feedback/testing before the official release. You can view updates here: [https://findtags.tumblr.com/tagged/findtags.blog](https://findtags.tumblr.com/tagged/findtags.blog)
 
 ## How to use: 
 - Go to the live page and starts searching for the tag you are interested in. It should start pulling up the most recent posts using that tag! 
