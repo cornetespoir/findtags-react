@@ -1,5 +1,5 @@
 > [!warning]
-> this is an outdated version of findtags. view the new version here:  https://github.com/cornetespoir/rewrite
+> this is an outdated version of findtags. view the new version here:  https://github.com/cornetespoir/findtags
 # Welcome to the new version of findtags!
 > view the live version: [https://cornetespoir.github.io/findtags-react/](https://cornetespoir.github.io/findtags-react)
 
